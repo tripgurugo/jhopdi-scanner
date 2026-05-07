@@ -3,83 +3,92 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=no">
-<title>Jhopdi Event Scanner 2026</title>
+<title>Jhopdi Event Scanner — Meet & Greet 2026</title>
 <script src="https://unpkg.com/html5-qrcode@2.3.8/html5-qrcode.min.js"></script>
 <style>
+@import url('https://fonts.googleapis.com/css2?family=Playfair+Display:wght@700&family=Inter:wght@400;500;600;700&display=swap');
 *{margin:0;padding:0;box-sizing:border-box}
-body{font-family:Arial,sans-serif;background:#0B1C36;color:#fff;min-height:100vh}
-.header{background:#C9960C;padding:14px 20px;text-align:center}
-.header h1{font-size:18px;color:#0B1C36;font-weight:700}
-.header p{font-size:12px;color:#0B1C36;margin-top:3px}
-.container{max-width:480px;margin:0 auto;padding:16px}
-.counter{display:flex;gap:10px;margin-bottom:14px}
-.count-box{flex:1;background:#122347;border-radius:10px;padding:12px 8px;text-align:center}
-.count-box h3{font-size:28px;font-weight:700}
-.count-box p{font-size:11px;color:#94A3B8;margin-top:2px}
-.count-box.green h3{color:#22C55E}
-.count-box.orange h3{color:#F59E0B}
-.count-box.red h3{color:#EF4444}
-.status-bar{background:#122347;border-radius:8px;padding:10px 14px;font-size:13px;text-align:center;margin-bottom:14px;color:#94A3B8;min-height:38px;display:flex;align-items:center;justify-content:center}
-#reader{width:100%;border-radius:12px;overflow:hidden;margin-bottom:12px;display:none}
+body{font-family:'Inter',sans-serif;background:linear-gradient(135deg,#0B1C36 0%,#0f2347 50%,#0B1C36 100%);color:#fff;min-height:100vh}
+.header{background:linear-gradient(135deg,#C9960C,#e6b020,#C9960C);padding:20px 24px 18px;text-align:center;position:relative;overflow:hidden}
+.header::before{content:'';position:absolute;top:-50%;left:-50%;width:200%;height:200%;background:radial-gradient(circle,rgba(255,255,255,0.15) 0%,transparent 60%)}
+.header-badge{display:inline-block;background:rgba(11,28,54,0.2);border:1px solid rgba(11,28,54,0.3);border-radius:20px;padding:4px 14px;font-size:11px;color:#0B1C36;font-weight:600;letter-spacing:1.5px;text-transform:uppercase;margin-bottom:8px}
+.header h1{font-family:'Playfair Display',serif;font-size:22px;color:#0B1C36;font-weight:700;line-height:1.2;margin-bottom:4px}
+.header p{font-size:12px;color:rgba(11,28,54,0.75);font-weight:500}
+.container{max-width:420px;margin:0 auto;padding:20px 16px 32px}
+.counter{display:flex;gap:10px;margin-bottom:18px}
+.count-box{flex:1;background:rgba(255,255,255,0.06);border:1px solid rgba(255,255,255,0.1);border-radius:14px;padding:14px 8px;text-align:center;backdrop-filter:blur(10px)}
+.count-box h3{font-size:32px;font-weight:700;line-height:1;margin-bottom:4px}
+.count-box p{font-size:11px;color:rgba(255,255,255,0.5);font-weight:500;text-transform:uppercase;letter-spacing:0.5px}
+.count-box.green h3{color:#22C55E}.count-box.green{border-color:rgba(34,197,94,0.2)}
+.count-box.orange h3{color:#F59E0B}.count-box.orange{border-color:rgba(245,158,11,0.2)}
+.count-box.red h3{color:#EF4444}.count-box.red{border-color:rgba(239,68,68,0.2)}
+.status-bar{background:rgba(255,255,255,0.06);border:1px solid rgba(255,255,255,0.1);border-radius:12px;padding:14px 16px;font-size:14px;font-weight:500;text-align:center;margin-bottom:18px;color:rgba(255,255,255,0.6);min-height:48px;display:flex;align-items:center;justify-content:center;gap:8px;backdrop-filter:blur(10px)}
+#reader{width:100%;border-radius:16px;overflow:hidden;margin-bottom:16px;display:none;border:2px solid #C9960C;box-shadow:0 0 30px rgba(201,150,12,0.3)}
 #reader video{width:100%!important}
-.btn{display:block;width:100%;padding:15px;font-size:17px;font-weight:700;border:none;border-radius:10px;cursor:pointer;margin-top:12px}
-.btn-start{background:#C9960C;color:#0B1C36}
-.btn-next{background:#1D4ED8;color:#fff;display:none}
-.btn-stop{background:#374151;color:#fff;display:none}
-.result-card{display:none;border-radius:14px;padding:22px 18px;text-align:center;margin-top:14px}
-.result-card.valid{background:#065F46;border:2px solid #22C55E;display:block}
-.result-card.used{background:#78350F;border:2px solid #F59E0B;display:block}
-.result-card.invalid{background:#7F1D1D;border:2px solid #EF4444;display:block}
-.result-icon{font-size:52px;margin-bottom:10px}
-.result-title{font-size:22px;font-weight:700;margin-bottom:14px;line-height:1.3}
-.result-detail{background:rgba(0,0,0,.25);border-radius:8px;padding:12px;text-align:left;font-size:14px;line-height:2}
-.lbl{color:#CBD5E1;font-size:11px;display:block}
-.val{font-size:15px;font-weight:700;display:block}
-.manual-section{margin-top:22px;border-top:1px solid #1e3a5f;padding-top:16px}
-.manual-label{font-size:12px;color:#64748B;text-align:center;margin-bottom:8px}
+.btn{display:block;width:100%;padding:16px;font-size:16px;font-weight:700;border:none;border-radius:14px;cursor:pointer;margin-top:12px;letter-spacing:0.5px;transition:all 0.2s ease;font-family:'Inter',sans-serif}
+.btn:active{transform:scale(0.98);opacity:0.9}
+.btn-start{background:linear-gradient(135deg,#C9960C,#e6b020);color:#0B1C36;box-shadow:0 4px 20px rgba(201,150,12,0.4)}
+.btn-next{background:linear-gradient(135deg,#1D4ED8,#2563EB);color:#fff;box-shadow:0 4px 20px rgba(29,78,216,0.4);display:none}
+.btn-stop{background:rgba(255,255,255,0.1);color:#fff;border:1px solid rgba(255,255,255,0.2);display:none}
+.result-card{display:none;border-radius:20px;padding:28px 20px;text-align:center;margin-top:16px;animation:popIn 0.3s cubic-bezier(0.175,0.885,0.32,1.275)}
+@keyframes popIn{from{transform:scale(0.85);opacity:0}to{transform:scale(1);opacity:1}}
+.result-card.valid{background:linear-gradient(135deg,#064e3b,#065F46);border:2px solid #22C55E;box-shadow:0 8px 32px rgba(34,197,94,0.3);display:block}
+.result-card.used{background:linear-gradient(135deg,#78350f,#92400e);border:2px solid #F59E0B;box-shadow:0 8px 32px rgba(245,158,11,0.3);display:block}
+.result-card.invalid{background:linear-gradient(135deg,#7f1d1d,#991b1b);border:2px solid #EF4444;box-shadow:0 8px 32px rgba(239,68,68,0.3);display:block}
+.result-icon{font-size:60px;margin-bottom:12px;line-height:1}
+.result-title{font-family:'Playfair Display',serif;font-size:20px;font-weight:700;margin-bottom:16px;line-height:1.3}
+.result-detail{background:rgba(0,0,0,0.25);border-radius:12px;padding:16px;text-align:left}
+.detail-row{display:flex;justify-content:space-between;align-items:center;padding:8px 0;border-bottom:1px solid rgba(255,255,255,0.1)}
+.detail-row:last-child{border-bottom:none}
+.lbl{color:rgba(255,255,255,0.5);font-size:12px;font-weight:500;text-transform:uppercase;letter-spacing:0.5px}
+.val{font-size:15px;font-weight:700;color:#fff;text-align:right;max-width:65%}
+.divider{display:flex;align-items:center;gap:12px;margin:20px 0 16px}
+.divider-line{flex:1;height:1px;background:rgba(255,255,255,0.1)}
+.divider-text{font-size:11px;color:rgba(255,255,255,0.3);font-weight:500;text-transform:uppercase;letter-spacing:1px;white-space:nowrap}
+.manual-label{font-size:12px;color:rgba(255,255,255,0.4);text-align:center;margin-bottom:10px;font-weight:500;text-transform:uppercase;letter-spacing:0.5px}
 .manual-wrap{display:flex;gap:8px}
-.manual-input{flex:1;padding:12px;border-radius:8px;border:1px solid #1e3a5f;background:#122347;color:#fff;font-size:14px;text-transform:uppercase;letter-spacing:1px}
-.manual-input::placeholder{text-transform:none;letter-spacing:0;color:#475569}
-.btn-verify{padding:12px 14px;background:#C9960C;color:#0B1C36;border:none;border-radius:8px;font-weight:700;cursor:pointer;font-size:13px;white-space:nowrap}
+.manual-input{flex:1;padding:14px 16px;border-radius:12px;border:1px solid rgba(255,255,255,0.15);background:rgba(255,255,255,0.08);color:#fff;font-size:15px;font-weight:700;text-transform:uppercase;letter-spacing:2px;font-family:'Inter',sans-serif;backdrop-filter:blur(10px)}
+.manual-input::placeholder{text-transform:none;letter-spacing:0;color:rgba(255,255,255,0.3);font-weight:400;font-size:13px}
+.manual-input:focus{outline:none;border-color:#C9960C;box-shadow:0 0 0 3px rgba(201,150,12,0.2)}
+.btn-verify{padding:14px 16px;background:linear-gradient(135deg,#C9960C,#e6b020);color:#0B1C36;border:none;border-radius:12px;font-weight:700;cursor:pointer;font-size:14px;white-space:nowrap;font-family:'Inter',sans-serif;box-shadow:0 4px 15px rgba(201,150,12,0.3)}
 </style>
 </head>
 <body>
 <div class="header">
-  <h1>🎪 Jhopdi.com Meetup 2026</h1>
-  <p>Event Entry Scanner | June 6, 2026</p>
+  <div class="header-badge">Entry Scanner</div>
+  <h1>Meet & Greet 2026</h1>
+  <p>Jhopdi.com × Dwarka Puri Vrindavan &nbsp;|&nbsp; May 9, 2026</p>
 </div>
 <div class="container">
   <div class="counter">
     <div class="count-box green"><h3 id="cntValid">0</h3><p>Checked In</p></div>
-    <div class="count-box orange"><h3 id="cntUsed">0</h3><p>Already Used</p></div>
+    <div class="count-box orange"><h3 id="cntUsed">0</h3><p>Used</p></div>
     <div class="count-box red"><h3 id="cntInvalid">0</h3><p>Rejected</p></div>
   </div>
-  <div class="status-bar" id="statusBar">Scanner ready — press Start</div>
+  <div class="status-bar" id="statusBar">Scanner ready — Press Start</div>
   <div id="reader"></div>
-  <button class="btn btn-start" id="btnStart" onclick="startScanner()">📷 Start Scanner</button>
-  <button class="btn btn-stop" id="btnStop" onclick="stopScanner()" style="display:none">⏹ Stop Scanner</button>
-  <button class="btn btn-next" id="btnNext" onclick="nextScan()" style="display:none">🔄 Next Guest</button>
+  <button class="btn btn-start" id="btnStart" onclick="startScanner()">📷 &nbsp; Start Scanner</button>
+  <button class="btn btn-stop" id="btnStop" onclick="stopScanner()" style="display:none">⏹ &nbsp; Stop Scanner</button>
+  <button class="btn btn-next" id="btnNext" onclick="nextScan()" style="display:none">🔄 &nbsp; Scan Next Guest</button>
   <div class="result-card" id="resultCard">
     <div class="result-icon" id="resIcon"></div>
     <div class="result-title" id="resTitle"></div>
     <div class="result-detail" id="resDetail"></div>
   </div>
-  <div class="manual-section">
-    <p class="manual-label">📝 Camera not working? Enter Entry ID manually:</p>
-    <div class="manual-wrap">
-      <input class="manual-input" id="manualId" type="text" placeholder="e.g. JHO-2026-001"/>
-      <button class="btn-verify" onclick="manualCheck()">✔ Verify</button>
-    </div>
+  <div class="divider">
+    <div class="divider-line"></div>
+    <div class="divider-text">or enter manually</div>
+    <div class="divider-line"></div>
+  </div>
+  <p class="manual-label">Camera not working? Enter Entry ID:</p>
+  <div class="manual-wrap">
+    <input class="manual-input" id="manualId" type="text" placeholder="e.g. JDC-2026-001"/>
+    <button class="btn-verify" onclick="manualCheck()">✔ Verify</button>
   </div>
 </div>
-
 <script>
-// ── Apps Script Web App URL — validation backend
-var APPS_SCRIPT_URL = "https://script.google.com/macros/s/AKfycbwrfygyrOljPL2Q58kt457DDX361-fuNye_HyEKRjDFqRTnTIayPBh__Xx2DXgqFMix/exec";
-
-var html5QrCode = null;
-var cntValid=0, cntUsed=0, cntInvalid=0;
-var lastScanned='', lastScannedTime=0;
+var APPS_SCRIPT_URL = "https://script.google.com/macros/s/AKfycbwOorIpg6aElyFYxlu0JpP5QSH8KnTyU4DwkuHyCn_PK5Y2WSvax7ZGYpHZVMfFs2aMXA/exec";
+var html5QrCode=null,cntValid=0,cntUsed=0,cntInvalid=0,lastScanned='',lastScannedTime=0;
 
 function startScanner(){
   clearResult();
@@ -87,20 +96,15 @@ function startScanner(){
   document.getElementById('btnStart').style.display='none';
   document.getElementById('btnStop').style.display='block';
   document.getElementById('reader').style.display='block';
-
-  html5QrCode = new Html5Qrcode("reader");
-
+  html5QrCode=new Html5Qrcode("reader");
   Html5Qrcode.getCameras().then(function(cameras){
-    if(cameras && cameras.length){
-      var cameraId = cameras[cameras.length-1].id;
-      html5QrCode.start(
-        cameraId,
-        { fps:10, qrbox:{ width:250, height:250 } },
+    if(cameras&&cameras.length){
+      var cameraId=cameras[cameras.length-1].id;
+      html5QrCode.start(cameraId,{fps:10,qrbox:{width:250,height:250}},
         function(decodedText){
-          var now = Date.now();
-          if(decodedText !== lastScanned || (now - lastScannedTime) > 4000){
-            lastScanned = decodedText;
-            lastScannedTime = now;
+          var now=Date.now();
+          if(decodedText!==lastScanned||(now-lastScannedTime)>4000){
+            lastScanned=decodedText;lastScannedTime=now;
             html5QrCode.stop().then(function(){
               document.getElementById('reader').style.display='none';
               document.getElementById('btnStop').style.display='none';
@@ -109,21 +113,20 @@ function startScanner(){
               callBackend(decodedText);
             });
           }
-        },
-        function(error){}
+        },function(error){}
       ).catch(function(err){
-        setStatus('Camera error: '+err,'error');
+        setStatus('Camera error. Try manual entry.','error');
         document.getElementById('btnStart').style.display='block';
         document.getElementById('btnStop').style.display='none';
       });
-      setStatus('📷 Point camera at QR code','ok');
-    } else {
+      setStatus('📷 Point camera at guest QR code','ok');
+    }else{
       setStatus('No camera found on device','error');
       document.getElementById('btnStart').style.display='block';
       document.getElementById('btnStop').style.display='none';
     }
-  }).catch(function(err){
-    setStatus('Camera permission denied. Please allow camera.','error');
+  }).catch(function(){
+    setStatus('Camera permission denied. Please allow camera access.','error');
     document.getElementById('btnStart').style.display='block';
     document.getElementById('btnStop').style.display='none';
   });
@@ -141,14 +144,11 @@ function stopScanner(){
 }
 
 function nextScan(){
-  clearResult();
-  lastScanned='';
-  lastScannedTime=0;
+  clearResult();lastScanned='';lastScannedTime=0;
   document.getElementById('btnNext').style.display='none';
   startScanner();
 }
 
-// ── Call Apps Script via fetch (works from GitHub Pages)
 function callBackend(qrCode){
   var url = APPS_SCRIPT_URL + "?action=check&qr=" + encodeURIComponent(qrCode);
   fetch(url, { redirect: 'follow' })
@@ -165,25 +165,22 @@ function showResult(data){
   card.className='result-card';
   var icon,title,detail;
   if(data.status==='valid'){
-    card.classList.add('valid');
-    icon='✅'; title='ENTRY VALID — LET THEM IN';
+    card.classList.add('valid');icon='✅';title='Entry Valid — Let Them In';
     detail=dRow('Name',data.name)+dRow('Company',data.company)+dRow('Entry ID',data.entryId)+dRow('Check-in',data.time);
     setStatus('✅ Valid — '+data.name,'ok');
-    cntValid++; document.getElementById('cntValid').innerText=cntValid;
+    cntValid++;document.getElementById('cntValid').innerText=cntValid;
   }else if(data.status==='used'){
-    card.classList.add('used');
-    icon='⚠️'; title='ALREADY CHECKED IN — STOP';
+    card.classList.add('used');icon='⚠️';title='Already Checked In — Stop';
     detail=dRow('Name',data.name)+dRow('Entry ID',data.entryId)+dRow('First Check-in',data.time);
     setStatus('⚠️ Duplicate — '+data.name,'warn');
-    cntUsed++; document.getElementById('cntUsed').innerText=cntUsed;
-    if(navigator.vibrate) navigator.vibrate([200,80,200]);
+    cntUsed++;document.getElementById('cntUsed').innerText=cntUsed;
+    if(navigator.vibrate)navigator.vibrate([200,80,200]);
   }else{
-    card.classList.add('invalid');
-    icon='❌'; title='INVALID QR — DENY ENTRY';
-    detail=dRow('Code',data.raw||'-');
-    setStatus('❌ Invalid QR','error');
-    cntInvalid++; document.getElementById('cntInvalid').innerText=cntInvalid;
-    if(navigator.vibrate) navigator.vibrate([300,100,300]);
+    card.classList.add('invalid');icon='❌';title='Invalid QR — Deny Entry';
+    detail=dRow('Scanned',data.raw||'-');
+    setStatus('❌ Invalid QR code','error');
+    cntInvalid++;document.getElementById('cntInvalid').innerText=cntInvalid;
+    if(navigator.vibrate)navigator.vibrate([300,100,300]);
   }
   document.getElementById('resIcon').innerText=icon;
   document.getElementById('resTitle').innerText=title;
@@ -191,12 +188,12 @@ function showResult(data){
 }
 
 function dRow(label,value){
-  return '<span class="lbl">'+label+'</span><span class="val">'+(value||'N/A')+'</span>';
+  return '<div class="detail-row"><span class="lbl">'+label+'</span><span class="val">'+(value||'N/A')+'</span></div>';
 }
 
 function manualCheck(){
   var val=document.getElementById('manualId').value.trim().toUpperCase();
-  if(!val){setStatus('Please enter Entry ID','warn');return;}
+  if(!val){setStatus('Please enter an Entry ID','warn');return;}
   document.getElementById('manualId').value='';
   clearResult();
   document.getElementById('btnNext').style.display='block';
@@ -212,14 +209,14 @@ function clearResult(){
   document.getElementById('resDetail').innerHTML='';
 }
 
-function setStatus(msg,type){
+function setStatus(html,type){
   var bar=document.getElementById('statusBar');
-  bar.innerHTML=msg;
-  bar.style.color=type==='ok'?'#22C55E':type==='error'?'#EF4444':type==='warn'?'#F59E0B':'#94A3B8';
+  bar.innerHTML=html;
+  bar.style.color=type==='ok'?'#22C55E':type==='error'?'#EF4444':type==='warn'?'#F59E0B':'rgba(255,255,255,0.5)';
 }
 
 document.getElementById('manualId').addEventListener('keydown',function(e){
-  if(e.key==='Enter') manualCheck();
+  if(e.key==='Enter')manualCheck();
 });
 </script>
 </body>
